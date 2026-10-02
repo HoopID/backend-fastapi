@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import get_db_connection
-from app.routes import auth, profile
+from app.routes import auth, profile, shooting
 
 app = FastAPI(
     title="HoopID Backend FastAPI",
@@ -18,9 +18,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Incluir routers
+# Registramos los routers
 app.include_router(auth.router)
 app.include_router(profile.router)
+app.include_router(shooting.router)
 
 
 @app.get("/api/health")
