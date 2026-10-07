@@ -1,7 +1,6 @@
-from pydantic import BaseModel, EmailStr
-from typing import Optional
 from datetime import date
-from pydantic import Field
+from pydantic import BaseModel, EmailStr, Field
+from typing import Optional
 
 
 class UserRegister(BaseModel):
@@ -61,3 +60,26 @@ class ShootingSessionResponse(BaseModel):
     notes: Optional[str] = None
     created_at: str
     updated_at: str
+
+
+# Esquemas para Partidos y Boxscores
+class BoxscoreSchema(BaseModel):
+    minutes_played: Optional[int] = Field(0, ge=0)
+    points: Optional[int] = Field(0, ge=0)
+    rebounds: Optional[int] = Field(0, ge=0)
+    assists: Optional[int] = Field(0, ge=0)
+    steals: Optional[int] = Field(0, ge=0)
+    blocks: Optional[int] = Field(0, ge=0)
+    turnovers: Optional[int] = Field(0, ge=0)
+    fouls: Optional[int] = Field(0, ge=0, le=5)
+
+
+class MatchCreate(BaseModel):
+    opponent: str
+    match_date: date
+    location: Optional[str] = None
+    result: Optional[str] = None
+    team_score: Optional[int] = None
+    opponent_score: Optional[int] = None
+    notes: Optional[str] = None
+    boxscore: Optional[BoxscoreSchema] = None
