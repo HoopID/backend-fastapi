@@ -40,6 +40,28 @@ class ProfileResponse(ProfileBase):
     updated_at: Optional[str] = None
 
 
+# Esquemas para Sesiones de Tiro
+class ShootingSessionCreate(BaseModel):
+    session_date: date
+    shots_made: int = Field(..., ge=0)
+    shots_attempted: int = Field(..., ge=0)
+    shot_type: Optional[str] = "General"
+    notes: Optional[str] = None
+
+
+class ShootingSessionResponse(BaseModel):
+    id: int
+    user_id: int
+    session_date: str
+    shots_made: int
+    shots_attempted: int
+    shooting_percentage: float
+    shot_type: str
+    notes: Optional[str] = None
+    created_at: str
+    updated_at: str
+
+
 # Esquemas para Partidos y Boxscores
 class BoxscoreSchema(BaseModel):
     minutes_played: Optional[int] = Field(0, ge=0)
